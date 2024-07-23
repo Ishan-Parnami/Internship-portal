@@ -12,7 +12,7 @@ dotenv.config();
 const URL = process.env.MONGODB_URL;
 app.use(express.json());
 app.use(cors({
-  origin:["http://localhost:3000"],
+  origin:["https://internship-frontend-r200.onrender.com","http://localhost:3000"],
   credentials:true
 }));
 app.use(cookieParser());
