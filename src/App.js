@@ -7,7 +7,7 @@ import Dashboard from './Components/Dashboard';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import OpportunitiesComponent from './Components/OpportunitiesComponent';
 
-axios.defaults.baseURL = process.env.API_BASE_URL || 'http://localhost:4000';
+axios.defaults.baseURL = 'https://internship-portal-rv8y.onrender.com';
 axios.defaults.withCredentials = true;
 
 export default function App() {

@@ -13,10 +13,13 @@ export default function Login() {
             .then(res => {
                 if (res.data.status) {
                     navigate("/dashboard");
-                }
+                } else {
+            navigate("/login");
+        }
             })
             .catch(error => {
                 console.error('Error verifying user:', error);
+                navigate("/login");
             });
     }, [navigate]);
 
@@ -32,6 +35,7 @@ export default function Login() {
             .then(response => {
                 if (response.data.status) {
                     navigate("/");
+                    console.log(JSON.stringify(response.data))
                 }
             })
             .catch(err => {
