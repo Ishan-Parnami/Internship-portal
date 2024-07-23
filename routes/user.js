@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
         return res.json({ message: "Password is incorrect!" })
     }
     const token = jwt.sign({ username: user.username }, process.env.KEY, { expiresIn: "3h" });
-    res.cookie("token", token, { httpOnly: true, maxAge: 720000 });
+    res.cookie("token", token, { httpOnly: true, maxAge: 720000, secure: true, sameSite: 'none' });
     return res.json({ status: true, message: "login successfully" });
 });
 
@@ -36,13 +36,14 @@ const verifyUser = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.json({ status: false, message: 'Authentication failed' });
+            return res.status(401).json({ status: false, message: 'Authentication failed' });
         }
-        const decode = await jwt.verify(token, process.env.KEY);
+        const decode = jwt.verify(token, process.env.KEY);
         req.user = decode;
         next();
     } catch (error) {
-        console.log(error);
+        console.log('Error in verification:', error);
+        return res.status(401).json({ status: false, message: 'Invalid token' });
     }
 }
 
